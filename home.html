@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electromart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+       
+</head>
+<body>
+ <nav class="navbar">
+        <div class="container">
+ <a href="index.html"><div class="nav-brand"><img src="logo.png" alt="" width="140px "></div></a>
+            <div class="hamburger" onclick="document.querySelector('.nav-menu').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            <ul class="nav-menu">
+                <li><a href="home.html" class="active">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                    <a href="cart.html" class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count" class="cart-count" style="display: none;">0</span>
+                    </a>     
+            </ul>
+           
+        </div>
+    </nav>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Experience Tomorrow's<br />Tech Today</h1>
+        <p>Discover the latest in cutting-edge electronics and smart devices</p>
+        <button class="btn-primary">
+          <a href="products.html" class="btn-primary">Shop Now</a>
+        </button>
+      </div>
+      <div class="hero-image">
+        <img src="https://img.freepik.com/free-vector/household-appliances-realistic-composition_1284-65307.jpg?semt=ais_hybrid&w=740&q=80" alt="Laptop" />
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <div class="feature-grid">
+        <div class="feature-item">
+          <i class="fas fa-shipping-fast"></i>
+          <h3>Free Shipping</h3>
+          <p>On orders over $100</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-headset"></i>
+          <h3>24/7 Support</h3>
+          <p>Dedicated customer service</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Secure Payment</h3>
+          <p>100% secure transactions</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="background-color:#1a1a2e; color:white; padding:2rem;">
+    <h1 style="text-align:center; margin-bottom:2rem;">COMPARISON TABLE</h1>
+  
+    <!-- Responsive Container -->
+    <div style="overflow-x:auto; -webkit-overflow-scrolling:touch; border:2px solid black; border-radius:8px;">
+      <table style="width:100%; min-width:600px; border-collapse:collapse; text-align:center;">
+        <tr style="background-color:#16213e;">
+          <th style="border:2px solid black; padding:1rem;">Brand</th>
+          <th style="border:2px solid black; padding:1rem;"> Quality</th>
+          <th style="border:2px solid black; padding:1rem;">Smart Features</th>
+          <th style="border:2px solid black; padding:1rem;">Warranty</th>
+          <th style="border:2px solid black; padding:1rem;">Average Price Range</th>
+        </tr>
+  
+        <tr>
+          <td style="border:2px solid black; padding:1rem;">HAIER</td>
+          <td style="border:2px solid black; padding:1rem;">Excellent </td>
+          <td style="border:2px solid black; padding:1rem;">  Geo-fencing</td>
+          <td style="border:2px solid black; padding:1rem;">1 Year</td>
+          <td style="border:2px solid black; padding:1rem;">$800 - $2500</td>
+        </tr>
+  
+        <tr>
+          <td style="border:2px solid black; padding:1rem;">SAMSUNG</td>
+          <td style="border:2px solid black; padding:1rem;">Outstanding </td>
+          <td style="border:2px solid black; padding:1rem;"> Auto Cook Programs</td>
+          <td style="border:2px solid black; padding:1rem;"> 1 - 1.5 Year</td>
+          <td style="border:2px solid black; padding:1rem;">$700 - $2200</td>
+        </tr>
+  
+        <tr>
+          <td style="border:2px solid black; padding:1rem;">TCL</td>
+          <td style="border:2px solid black; padding:1rem;">Very Good </td>
+          <td style="border:2px solid black; padding:1rem;">Remote Control and Monitoring</td>
+          <td style="border:2px solid black; padding:1rem;">2 Year</td>
+          <td style="border:2px solid black; padding:1rem;">$400 - $1200</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="featured-products">
+    <div class="container">
+      <h2 class="section-title">Featured Products</h2>
+      <div class="products-grid" id="featured-products"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Electromart</h3>
+          <p>Your trusted source for premium electronics</p>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://x.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <p><i class="fas fa-phone"></i> +92 309 3784904</p>
+          <p><i class="fas fa-envelope"></i> Electromart@gmail.com</p>
+          <p><i class="fas fa-map-marker-alt"></i> Tariq Road, Karachi</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Electromart. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Import your products data and main JS -->
+  <script src="products-data.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Script to show 3 products only -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const featuredContainer = document.getElementById("featured-products");
+      const featuredProducts = products.slice(0, 3); // First 3 products only
+
+      featuredContainer.innerHTML = featuredProducts
+        .map(
+          (product) => `
+        <div class="product-card">
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.name}">
+          </div>
+          <div class="product-info">
+            <span class="product-brand">${product.brand}</span>
+            <h3>${product.name}</h3>
+            <p class="product-price">$${product.price.toFixed(2)}</p>
+            <div class="product-actions">
+           
+              <a href="products.html" class="btn-secondary">View More</a>
+            </div>
+          </div>
+        </div>
+      `
+        )
+        .join("");
+    });
+  </script>
+</body>
+</html>

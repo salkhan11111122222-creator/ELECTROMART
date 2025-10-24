@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electromart</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- ✅ Navbar -->
+  <nav class="navbar">
+    <div class="container">
+        <a href="index.html"><div class="nav-brand"><img src="logo.png" alt="" width="140px "></div></a>
+        <div class="hamburger" onclick="document.querySelector('.nav-menu').classList.toggle('active')">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        <ul class="nav-menu">
+            <li><a href="home.html" class="active">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count" style="display: none;">0</span>
+                </a>     
+        </ul>
+       
+    </div>
+</nav>
+  <!-- ✅ Hero Section -->
+  <section class="products-hero">
+    <div class="container">
+      <h1>Our Products</h1>
+      <p>Explore our collection of premium appliances</p>
+    </div>
+  </section>
+
+  <!-- ✅ Product Filters & Grid -->
+  <section class="products-section">
+    <div class="container">
+      <div class="filters-container">
+        <div class="filter-section">
+          <label for="brand-filter">Select Brand:</label>
+          <select id="brand-filter" class="brand-dropdown">
+            <option value="all">All Brands</option>
+            <option value="Haier">Haier</option>
+            <option value="TCL">TCL</option>
+            <option value="Samsung">Samsung</option>
+          </select>
+        </div>
+
+        <div class="category-buttons">
+          <button class="category-btn active" data-category="all">All Products</button>
+          <button class="category-btn" data-category="Microwave">Microwave</button>
+          <button class="category-btn" data-category="Refrigerator">Refrigerator</button>
+          <button class="category-btn" data-category="Air Conditioner">Air Conditioner</button>
+        </div>
+      </div>
+
+      <div id="products-container" class="products-grid"></div>
+    </div>
+  </section>
+
+  <!-- ✅ Modal -->
+  <div id="product-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+  
+
+  <!-- ✅ Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Electromart</h3>
+          <p>Your trusted source for premium electronics</p>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://x.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <p><i class="fas fa-phone"></i> +92 309 3784904</p>
+          <p><i class="fas fa-envelope"></i> Electromart@gmail.com</p>
+          <p><i class="fas fa-map-marker-alt"></i> Tariq Road, Karachi</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Electromart. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
+
+  <!-- ✅ JS Files -->
+  <script src="products-data.js"></script>
+  <script src="script.js"></script>
+
+  <!-- ✅ Inline Script -->
+  <script>
+    let selectedBrand = 'all';
+    let selectedCategory = 'all';
+
+    function renderProducts() {
+      const container = document.getElementById('products-container');
+      const filteredProducts = products.filter(product => {
+        const brandMatch = selectedBrand === 'all' || product.brand === selectedBrand;
+        const categoryMatch = selectedCategory === 'all' || product.category === selectedCategory;
+        return brandMatch && categoryMatch;
+      });
+
+      if (filteredProducts.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 4rem 0;">
+            <p style="font-size: 1.2rem; color: var(--text-light);">
+              No products found matching your filters.
+            </p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = filteredProducts.map(product => `
+        <div class="product-card">
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.name}">
+          </div>
+          <div class="product-info">
+            <span class="product-brand">${product.brand}</span>
+            <h3>${product.name}</h3>
+            <p class="product-price">$${product.price.toFixed(2)}</p>
+            <div class="product-actions">
+              <button class="btn-secondary add-to-cart-btn" data-product-id="${product.id}">Add to Cart</button>
+              <button class="btn-secondary view-more-btn" data-product-id="${product.id}">View More</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // ✅ Button listeners
+      document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const productId = parseInt(this.dataset.productId);
+          const product = products.find(p => p.id === productId);
+          if (product) {
+            addToCart(product);
+            this.textContent = 'Added to Cart';
+            this.classList.replace('btn-secondary', 'btn-success');
+            setTimeout(() => {
+              this.textContent = 'Add to Cart';
+              this.classList.replace('btn-success', 'btn-secondary');
+            }, 3000);
+          }
+        });
+      });
+
+      document.querySelectorAll('.view-more-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const productId = parseInt(this.dataset.productId);
+          const product = products.find(p => p.id === productId);
+          if (product) showProductModal(product);
+        });
+      });
+    }
+
+    // ✅ Show Modal
+    function showProductModal(product) {
+      const modal = document.getElementById('product-modal');
+      const modalBody = document.getElementById('modal-body');
+      modalBody.innerHTML = `
+        <h2>${product.name}</h2>
+        <img src="${product.image}" alt="${product.name}" class="modal-image">
+        <p><strong>Brand:</strong> ${product.brand}</p>
+        <p><strong>Category:</strong> ${product.category}</p>
+        <p class="product-price">$${product.price.toFixed(2)}</p>
+        <p style="color: var(--text-light); margin: 1rem 0;">${product.description}</p>
+        <div class="modal-actions">
+          <button class="btn-primary" onclick="downloadProductInfo(${product.id})">Download Info</button>
+          <button class="btn-secondary" onclick="closeModal()">Close</button>
+        </div>`;
+      modal.classList.add('show');
+    }
+
+    // ✅ Close Modal
+    function closeModal() {
+      document.getElementById('product-modal').classList.remove('show');
+    }
+
+    // ✅ Download file with custom name
+    function downloadProductInfo(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      if (!confirm(`Download ${product.name} info file?`)) return;
+
+      let filePath = "";
+      let customName = "";
+
+      switch (product.category) {
+        case "Microwave":
+          filePath = "Microwave_Info.docx";
+          customName = "My_Microwave_Details.docx";
+          break;
+        case "Refrigerator":
+          filePath = "Refrigerator_Info.docx";
+          customName = "My_Refrigerator_Guide.docx";
+          break;
+        case "Air Conditioner":
+          filePath = "AirConditioner_Info.docx";
+          customName = "My_AirConditioner_Info.docx";
+          break;
+        default:
+          filePath = "Product_Info.docx";
+          customName = "My_Custom_Product_Info.docx";
+      }
+
+      const link = document.createElement("a");
+      link.href = filePath;
+      link.download = customName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // ✅ Event Listeners
+    document.getElementById('brand-filter').addEventListener('change', e => {
+      selectedBrand = e.target.value;
+      renderProducts();
+    });
+
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        selectedCategory = this.dataset.category;
+        renderProducts();
+      });
+    });
+
+    document.querySelector('.close-modal').addEventListener('click', closeModal);
+    document.getElementById('product-modal').addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+
+    // ✅ Initial Render
+    renderProducts();
+  </script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electromart</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>/* Responsive Design */
+@media (max-width: 1024px) {
+  .hero .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .product-card {
+    width: 100%;
+  }
+
+  .cart-grid,
+  .checkout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-summary {
+    position: static;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+
+
+  /* Hero Section */
+  .hero .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  /* Cart Layout */
+  .cart-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .cart-item-image {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+  }
+
+  .cart-item-info {
+    text-align: center;
+  }
+
+  .quantity-controls {
+    justify-content: center;
+  }
+
+  /* Footer */
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  /* Buttons */
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.7rem;
+  }
+
+  .product-card {
+    margin: 0 auto;
+  }
+
+  .cart-item {
+    padding: 1rem;
+  }
+
+  .cart-summary {
+    padding: 1.5rem;
+  }
+
+  .quantity-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .footer {
+    padding: 2rem 1rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.9rem;
+  }
+}
+</style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+ <a href="index.html"><div class="nav-brand"><img src="logo.png" alt="" width="140px "></div></a>
+        <div class="hamburger" onclick="document.querySelector('.nav-menu').classList.toggle('active')">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        <ul class="nav-menu">
+            <li><a href="home.html" class="active">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count" style="display: none;">0</span>
+                </a>     
+        </ul>
+       
+    </div>
+</nav>
+    <section class="products-hero">
+        <div class="container">
+            <h1>Shopping Cart</h1>
+        </div>
+    </section>
+
+    <section class="products-section">
+        <div class="container">
+            <div id="cart-content"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Electromart</h3>
+            <p>Your trusted source for premium electronics</p>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+              <a href="https://x.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+              
+            </div>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="home.html">Home</a></li>
+              <li><a href="products.html">Products</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Contact Info</h4>
+            <p><i class="fas fa-phone"></i> +92 309 3784904</p>
+            <p><i class="fas fa-envelope"></i> Electromart@gmail.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tariq Road, Karachi</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Electromart. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  
+
+    <script src="script.js"></script>
+    <script>
+        function renderCart() {
+            const cartContent = document.getElementById('cart-content');
+            const cart = getCart();
+
+            if (cart.length === 0) {
+                cartContent.innerHTML = `
+                    <div class="empty-cart">
+                        <p>Your cart is empty</p>
+                        <a href="products.html" class="btn-primary">Continue Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Group items by ID and count quantity
+            const cartWithQuantity = cart.reduce((acc, item) => {
+                const existing = acc.find(i => i.id === item.id);
+                if (existing) {
+                    existing.quantity += 1;
+                } else {
+                    acc.push({ ...item, quantity: 1 });
+                }
+                return acc;
+            }, []);
+
+            const total = cartWithQuantity.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            cartContent.innerHTML = `
+                <div class="cart-grid">
+                    <div class="cart-items">
+                        ${cartWithQuantity.map(item => `
+                            <div class="cart-item">
+                                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                                <div class="cart-item-info">
+                                    <h3>${item.name}</h3>
+                                    <p class="cart-item-brand">${item.brand}</p>
+                                    <p class="product-price">$${item.price.toFixed(2)}</p>
+                                    <div class="quantity-controls">
+                                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                                        <span class="quantity-display">${item.quantity}</span>
+                                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                                        <button class="remove-btn" onclick="removeItem(${item.id})">
+                                            <i class="fas fa-trash"></i> Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div>
+                        <div class="cart-summary">
+                            <h2 style="margin-bottom: 1.5rem;">Order Summary</h2>
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span>$${total.toFixed(2)}</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span>Free</span>
+                            </div>
+                            <div class="summary-total">
+                                <span>Total</span>
+                                <span class="amount">$${total.toFixed(2)}</span>
+                            </div>
+                            <a href="checkout.html" class="btn-primary" style="width: 100%; text-align: center; margin-top: 1.5rem; padding: 1rem; font-size: 1.1rem;">
+                                Proceed to Checkout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function changeQuantity(productId, newQuantity) {
+            if (newQuantity < 1) {
+                removeItem(productId);
+            } else {
+                updateQuantity(productId, newQuantity);
+                renderCart();
+            }
+        }
+
+        function removeItem(productId) {
+            let cart = getCart();
+            cart = cart.filter(item => item.id !== productId);
+            saveCart(cart);
+            renderCart();
+        }
+
+        // Initial render
+        renderCart();
+    </script>
+</body>
+</html>

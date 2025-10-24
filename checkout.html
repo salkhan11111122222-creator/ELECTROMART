@@ -1,0 +1,714 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electromart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+      /* === Base === */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #00bcd4;
+        --secondary-color: #0097a7;
+        --dark-bg: #1a1a2e;
+        --light-bg: #f5f5f5;
+        --text-dark: #333;
+        --text-light: #666;
+        --white: #ffffff;
+        --border-color: #e0e0e0;
+        --card-bg: #ffffff;
+        --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        --shadow-hover: 0 8px 15px rgba(0,0,0,0.2);
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+        background-color: var(--light-bg);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* === Navbar === */
+      .navbar {
+        background-color: var(--dark-bg);
+        color: var(--white);
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+
+      .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 25px;
+        align-items: center;
+      }
+
+      .nav-menu a {
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-menu a:hover {
+        color: var(--primary-color);
+      }
+
+    .cart-btn {
+
+      color: var(--white);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background-color 0.3s;
+      position: relative;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+  }
+
+
+  .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #dc3545;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+  } 
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+      }
+
+      .hamburger span {
+        height: 3px;
+        width: 25px;
+        background: white;
+        margin: 4px 0;
+        transition: 0.3s;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background: #1a1a1a;
+          flex-direction: column;
+          text-align: center;
+          padding: 15px 0;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+      }
+
+      /* === Hero === */
+      .products-hero {
+        background: linear-gradient(135deg, var(--dark-bg) 0%, #16213e 100%);
+        color: var(--white);
+        padding: 3rem 0;
+        text-align: center;
+      }
+
+      .products-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* === Checkout === */
+      .products-section {
+        padding: 4rem 0;
+      }
+
+      .checkout-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+      }
+
+      .checkout-form {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        margin-bottom: 2rem;
+      }
+
+      .checkout-form h2 {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+      }
+
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 0.8rem;
+        border: 2px solid var(--border-color);
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+      }
+
+      .cart-summary {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 100px;
+      }
+
+      .order-items {
+        max-height: 250px;
+        overflow-y: auto;
+        margin-bottom: 1rem;
+      }
+
+      .order-item {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .order-item-image {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+
+      .order-item-info {
+        flex: 1;
+      }
+
+      .order-item-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .order-item-qty {
+        font-size: 0.85rem;
+        color: var(--text-light);
+      }
+
+      .order-item-price {
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        color: var(--text-light);
+      }
+
+      .summary-total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.3rem;
+        font-weight: bold;
+        padding-top: 1rem;
+        border-top: 2px solid var(--border-color);
+        margin-top: 1rem;
+      }
+
+      .summary-total .amount {
+        color: var(--primary-color);
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--secondary-color);
+      }
+
+      /* === Footer === */
+      .footer {
+        background-color: var(--dark-bg);
+        color: var(--white);
+        padding: 3rem 0 1rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-section h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+
+      .footer-section ul {
+        list-style: none;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-section ul li a:hover {
+        color: var(--primary-color);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border-radius: 50%;
+        transition: background-color 0.3s;
+      }
+
+      .social-icons a:hover {
+        background-color: var(--secondary-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid #333;
+        color: #ccc;
+      }
+
+      /* === Real-time Validation === */
+      .error-message {
+        color: #dc3545;
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: none;
+      }
+
+      input.invalid {
+        border-color: #dc3545 !important;
+      }
+
+      input.valid {
+        border-color: #28a745 !important;
+      }
+
+      /* === Responsive === */
+      @media (max-width: 768px) {
+        .checkout-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .error-message {
+        color: #dc3545;
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: none;
+      }
+
+      input.invalid {
+        border-color: #dc3545 !important;
+      }
+
+      input.valid {
+        border-color: #28a745 !important;
+      }
+          .payment-methods {
+      margin-bottom: 1.5rem;
+    }
+
+    .payment-methods label {
+      display: inline-block;
+      margin-right: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+      <a href="index.html"><div class="nav-brand"><img src="logo.png" alt="" width="140px "></div></a>
+          <div class="hamburger" onclick="document.querySelector('.nav-menu').classList.toggle('active')">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          <ul class="nav-menu">
+              <li><a href="home.html" class="active">Home</a></li>
+              <li><a href="products.html">Products</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+                  <a href="cart.html" class="cart-btn">
+                      <i class="fas fa-shopping-cart"></i>
+                      <span id="cart-count" class="cart-count" style="display: none;">0</span>
+                  </a>     
+          </ul>
+         
+      </div>
+  </nav>
+
+  <section class="products-hero">
+    <div class="container">
+      <h1>Checkout</h1>
+    </div>
+  </section>
+
+  <section class="products-section">
+    <div class="container">
+      <form id="checkout-form">
+        <div class="checkout-grid">
+          <div>
+            <div class="checkout-form">
+              <h2>Shipping Information</h2>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="fullName">Full Name</label>
+                  <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group full-width">
+                  <label for="address">Address</label>
+                  <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                  <label for="postalCode">Postal Code</label>
+                  <input type="text" id="postalCode" name="postalCode" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- === New Section Added Here === -->
+            <div class="checkout-form">
+              <h2>Select Payment Method</h2>
+              <div class="payment-methods">
+                <label>
+                  <input type="radio" name="paymentMethod" value="cod" checked>
+                  Cash on Delivery (COD)
+                </label>
+                <label>
+                  <input type="radio" name="paymentMethod" value="online">
+                  Online Payment
+                </label>
+              </div>
+            </div>
+            <!-- === End of New Section === -->
+
+            <div class="checkout-form" id="payment-section">
+              <h2>Payment Information</h2>
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label for="cardNumber">Card Number</label>
+                  <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="form-group full-width">
+                  <label for="cardName">Name on Card</label>
+                  <input type="text" id="cardName" name="cardName">
+                </div>
+                <div class="form-group">
+                  <label for="expiryDate">Expiry Date</label>
+                  <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY">
+                </div>
+                <div class="form-group">
+                  <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" name="cvv" placeholder="123">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="cart-summary">
+              <h2 style="margin-bottom: 1.5rem;">Order Summary</h2>
+              <div class="order-items" id="order-items"></div>
+              <div id="order-total"></div>
+              <button type="submit" class="btn-primary" style="width: 100%; text-align: center; margin-top: 1.5rem; padding: 1rem; font-size: 1.1rem;">
+                Place Order
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Electromart</h3>
+          <p>Your trusted source for premium electronics</p>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://x.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <p><i class="fas fa-phone"></i> +92 309 3784904</p>
+          <p><i class="fas fa-envelope"></i> Electromart@gmail.com</p>
+          <p><i class="fas fa-map-marker-alt"></i> Tariq Road, Karachi</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Electromart. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+
+    <script src="script.js"></script>
+
+    <script>
+  // === Order Summary Render ===
+  function renderOrderSummary() {
+    const cart = getCart ? getCart() : [];
+    if (cart.length === 0) {
+      window.location.href = 'cart.html';
+      return;
+    }
+
+    const cartWithQuantity = cart.reduce((acc, item) => {
+      const existing = acc.find(i => i.id === item.id);
+      if (existing) existing.quantity += 1;
+      else acc.push({ ...item, quantity: 1 });
+      return acc;
+    }, []);
+
+    const total = cartWithQuantity.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    document.getElementById('order-items').innerHTML = cartWithQuantity.map(item => `
+      <div class="order-item">
+        <img src="${item.image}" alt="${item.name}" class="order-item-image">
+        <div class="order-item-info">
+          <p class="order-item-name">${item.name}</p>
+          <p class="order-item-qty">Qty: ${item.quantity}</p>
+        </div>
+        <p class="order-item-price">$${(item.price * item.quantity).toFixed(2)}</p>
+      </div>
+    `).join('');
+
+    document.getElementById('order-total').innerHTML = `
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span>$${total.toFixed(2)}</span>
+      </div>
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span>Free</span>
+      </div>
+      <div class="summary-total">
+        <span>Total</span>
+        <span class="amount">$${total.toFixed(2)}</span>
+      </div>
+    `;
+  }
+
+  // === Real-Time Validation ===
+  const fields = [
+    { id: "fullName", regex: /^[A-Za-z ]{3,}$/, message: "Enter a valid full name (min 3 letters)" },
+    { id: "email", regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email address" },
+    { id: "phone", regex: /^[0-9]{10,15}$/, message: "Phone must be 10–15 digits" },
+    { id: "city", regex: /^[A-Za-z ]{2,}$/, message: "Enter a valid city name" },
+    { id: "address", regex: /^.{5,}$/, message: "Address must be at least 5 characters" },
+    { id: "postalCode", regex: /^[0-9]{4,10}$/, message: "Enter a valid postal code" },
+    { id: "cardNumber", regex: /^[0-9]{16}$/, message: "Card number must be 16 digits" },
+    { id: "cardName", regex: /^[A-Za-z ]{3,}$/, message: "Enter the cardholder's name" },
+    { id: "expiryDate", regex: /^(0[1-9]|1[0-2])\/\d{2}$/, message: "Use format MM/YY" },
+    { id: "cvv", regex: /^[0-9]{3,4}$/, message: "CVV must be 3–4 digits" },
+  ];
+
+  fields.forEach(field => {
+    const input = document.getElementById(field.id);
+    if (!input) return;
+
+    const error = document.createElement("div");
+    error.classList.add("error-message");
+    input.insertAdjacentElement("afterend", error);
+
+    input.addEventListener("input", () => {
+      if (field.regex.test(input.value.trim())) {
+        input.classList.add("valid");
+        input.classList.remove("invalid");
+        error.style.display = "none";
+      } else {
+        input.classList.add("invalid");
+        input.classList.remove("valid");
+        error.textContent = field.message;
+        error.style.display = "block";
+      }
+    });
+  });
+
+  document.getElementById("checkout-form").addEventListener("submit", e => {
+    let valid = true;
+    fields.forEach(field => {
+      const input = document.getElementById(field.id);
+      if (input && !input.classList.contains("hidden") && input.required && !field.regex.test(input.value.trim())) {
+        input.classList.add("invalid");
+        valid = false;
+      }
+    });
+
+    if (!valid) {
+      e.preventDefault();
+      alert("Please fix errors before placing your order.");
+    } else {
+      alert('Order placed successfully! Thank you for your purchase.');
+      clearCart && clearCart();
+      window.location.href = 'home.html';
+    }
+  });
+
+  // === Payment Method Logic ===
+  const paymentSection = document.getElementById("payment-section");
+  const paymentRadios = document.querySelectorAll('input[name="paymentMethod"]');
+
+  paymentRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+      const selected = document.querySelector('input[name="paymentMethod"]:checked').value;
+      if (selected === "online") {
+        paymentSection.classList.remove("hidden");
+        document.querySelectorAll("#payment-section input").forEach(input => input.required = true);
+      } else {
+        paymentSection.classList.add("hidden");
+        document.querySelectorAll("#payment-section input").forEach(input => input.required = false);
+      }
+    });
+  });
+
+  // Initially hide payment section for COD
+  paymentSection.classList.add("hidden");
+  document.querySelectorAll("#payment-section input").forEach(input => input.required = false);
+
+  // Render the order summary
+  renderOrderSummary();
+</script>
+
+  </body>
+  </html>

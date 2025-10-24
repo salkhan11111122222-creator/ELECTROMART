@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electromart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+       <style>
+  .hero-section {
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #16213e 100%);
+    color: var(--white);
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+  }
+
+  .hero-section p {
+    color: #ccc;
+    font-size: 1.2rem;
+  }
+
+
+.contact-section {
+  padding: 4rem 0;
+  background-color: var(--light-bg);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.form-wrapper {
+  background-color: var(--white);
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.form-wrapper h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark-bg);
+}
+
+.contact-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.contact-form .form-input {
+  width: 100%;
+  padding: 0.9rem;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-form .form-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.2);
+  outline: none;
+}
+
+
+.form-input.valid {
+  border-color: #28a745;
+}
+
+.form-input.invalid {
+  border-color: #dc3545;
+}
+
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+.error-message.show {
+  display: block;
+  opacity: 1;
+}
+
+
+.success-message {
+  display: none;
+  margin-top: 1rem;
+  background-color: #d4edda;
+  color: #155724;
+  padding: 1rem;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  transition: opacity 0.3s;
+}
+
+.success-message.show {
+  display: block;
+  opacity: 1;
+}
+
+
+.submit-btn {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.submit-btn svg {
+  stroke: var(--white);
+}
+
+
+.info-wrapper {
+  background-color: var(--white);
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.info-wrapper h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark-bg);
+}
+
+.contact-info {
+  margin-bottom: 2rem;
+}
+
+.info-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+
+.icon-circle {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0,188,212,0.1);
+  color: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background-color 0.3s;
+}
+
+.info-item:hover .icon-circle {
+  background-color: var(--primary-color);
+  color: var(--white);
+  transform: rotate(10deg);
+}
+
+.info-item h4 {
+  margin-bottom: 0.2rem;
+  color: var(--dark-bg);
+  font-weight: 600;
+}
+
+.info-item p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+
+.map-container iframe {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+
+@media (max-width: 800px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-wrapper,
+  .info-wrapper {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .info-item {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .icon-circle {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+
+</style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+        <a href="index.html"><div class="nav-brand"><img src="logo.png" alt="" width="140px "></div></a>
+            <div class="hamburger" onclick="document.querySelector('.nav-menu').classList.toggle('active')">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        <ul class="nav-menu">
+            <li><a href="home.html" class="active">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count" style="display: none;">0</span>
+                </a>     
+        </ul>
+       
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>We'd love to hear from you</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="form-wrapper">
+                    <h2>Send us a Message</h2>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Your full name"
+                                class="form-input"
+                            >
+                            <p class="error-message" id="nameError"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="your.email@example.com"
+                                class="form-input"
+                            >
+                            <p class="error-message" id="emailError"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                rows="5"
+                                placeholder="Your message"
+                                class="form-input"
+                            ></textarea>
+                            <p class="error-message" id="messageError"></p>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                            Send Message
+                        </button>
+
+                        <div id="successMessage" class="success-message">
+                            Message sent successfully! We'll get back to you soon.
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="info-wrapper">
+                    <h2>Get in Touch</h2>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <div class="icon-circle">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Address</h4>
+                                <p>Tariq Road, Karachi</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="icon-circle">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+92 309 3784904</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="icon-circle">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>Electromart@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="icon-circle">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Business Hours</h4>
+                                <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
+                                <p>Sat: 10:00 AM - 4:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.741300231623!2d67.05798937443008!3d24.87268374477016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e923adec49d%3A0xcc2dbd936f1c5627!2sTariq%20Rd%2C%20Karachi%2C%20Pakistan!5e0!3m2!1sen!2s!4v1759832417330!5m2!1sen!2s"
+                            width="100%"
+                            height="300"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            title="Location Map"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+       <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Electromart</h3>
+                    <p>Your trusted source for premium electronics</p>
+                    <div class="social-icons">
+                      <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://x.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +92 309 3784904</p>
+                    <p><i class="fas fa-envelope"></i> Electromart@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Tariq Road, Karachi</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+              <p>&copy; 2025 Electromart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>   
+
+    <script src="contact.js"></script>
+    <script>
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartCount = document.getElementById('cart-count');
+  const count = cart.length;
+
+  if (count > 0) {
+    cartCount.textContent = count;
+    cartCount.style.display = 'flex';
+  } else {
+    cartCount.style.display = 'none';
+  }
+}
+
+
+updateCartCount();
+</script>
+
+</body>
+</html>
